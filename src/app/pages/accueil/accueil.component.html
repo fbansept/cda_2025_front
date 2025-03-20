@@ -1,9 +1,30 @@
-<ul>
+<button mat-raised-button>Basic</button>
+
+<div class="row">
+
 
   @for (produit of produits; track $index) {
+    <div class="col-6 mb-4">
 
-    <li>{{ produit.nom }}</li>
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>{{ produit.nom }}</mat-card-title>
+          <mat-card-subtitle>{{ produit.code }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="https://picsum.photos/id/{{produit.id}}/600/400" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <p>
+            {{ produit.description }}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Editer</button>
+          <button mat-button>Supprimer</button>
+          <button mat-button>Acheter</button>
+        </mat-card-actions>
+      </mat-card>
 
+    </div>
   }
 
-</ul>
+</div>
