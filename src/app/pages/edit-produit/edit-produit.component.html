@@ -1,0 +1,28 @@
+<form [formGroup]="formulaire" (ngSubmit)="onAjoutProduit()">
+  <mat-form-field>
+    <mat-label>Nom</mat-label>
+    <input formControlName="nom" matInput placeholder="Ex. PC Asus 9874">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Code</mat-label>
+    <input formControlName="code" matInput placeholder="ASU458">
+    <mat-error>Le code est requis</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea formControlName="description" matInput></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Prix</mat-label>
+    <input formControlName="prix" matInput type="number">
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button>
+    <mat-icon fontIcon="add"></mat-icon>
+    Ajouter le produit
+  </button>
+
+</form>
