@@ -15,7 +15,7 @@ export class EditProduitComponent {
   formBuilder = inject(FormBuilder)
 
   formulaire = this.formBuilder.group({
-    nom: ["", [Validators.required, Validators.maxLength(20), Validators.minLength(1)]],
+    nom: ["", [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],
     code: ["", [Validators.required]],
     description: ["", []],
     prix: [0, [Validators.required, Validators.min(0.1)]],
