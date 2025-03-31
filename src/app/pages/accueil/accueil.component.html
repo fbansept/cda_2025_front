@@ -8,10 +8,19 @@
   @for (produit of produits; track $index) {
     <div class="col-6 mb-4">
 
-      <mat-card appearance="outlined">
+      <mat-card appearance="outlined" [class.occasion]="produit.etat.id == 2">
         <mat-card-header>
           <mat-card-title>{{ produit.nom }}</mat-card-title>
-          <mat-card-subtitle>{{ produit.code }}</mat-card-subtitle>
+          <mat-card-subtitle>
+            <span class="code">{{ produit.code }}</span>
+
+            @for (etiquette of produit.etiquettes; track $index) {
+              <span class="etiquette" [ngStyle]="{backgroundColor: etiquette.couleur}">
+                {{ etiquette.nom }}
+              </span>
+            }
+
+          </mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image src="https://picsum.photos/id/{{produit.id}}/600/400" alt="Photo of a Shiba Inu">
         <mat-card-content>
@@ -20,7 +29,7 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>Editer</button>
+          <button mat-button [routerLink]="['/modifier-produit',produit.id]">Editer</button>
           <button mat-button>Supprimer</button>
           <button mat-button>Acheter</button>
         </mat-card-actions>

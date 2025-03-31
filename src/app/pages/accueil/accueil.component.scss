@@ -1,0 +1,22 @@
+mat-card {
+
+  &.occasion {
+    background-color: #f79898;
+  }
+
+  mat-card-subtitle {
+
+    .code {
+      font-style: italic;
+    }
+
+    .etiquette {
+      padding: 5px;
+      border-radius: 5px;
+      background-color: rosybrown;
+      margin-left: 0.5em;
+    }
+
+  }
+
+}

@@ -27,11 +27,38 @@
   <mat-form-field>
     <mat-label>Prix</mat-label>
     <input formControlName="prix" matInput type="number">
+
+    @if (formulaire.get('prix')?.hasError('required')) {
+      <mat-error>Le prix est requis</mat-error>
+    } @else if (formulaire.get('prix')?.hasError('min')) {
+      <mat-error>Le prix doit être au minimum de 10 centimes</mat-error>
+    }
+
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Etat</mat-label>
+    <mat-select formControlName="etat" [compareWith]="compareId">
+      @for (etat of etats; track $index) {
+        <mat-option [value]="etat">{{ etat.nom }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Etiquettes</mat-label>
+    <mat-select formControlName="etiquettes" multiple [compareWith]="compareId">
+      @for (etiquette of etiquettes; track $index) {
+        <mat-option [value]="etiquette">
+          {{ etiquette.nom }}
+        </mat-option>
+      }
+    </mat-select>
   </mat-form-field>
 
   <button type="submit" mat-raised-button>
-    <mat-icon fontIcon="add"></mat-icon>
-    Ajouter le produit
+    <mat-icon [fontIcon]="produitEdite ? 'edit' : 'add'"></mat-icon>
+    {{ produitEdite ? "Editer le produit" : "Ajouter le produit" }}
   </button>
 
 </form>
