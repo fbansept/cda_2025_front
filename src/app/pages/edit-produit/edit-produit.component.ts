@@ -6,7 +6,7 @@ import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angula
 import {HttpClient} from '@angular/common/http';
 import {MatSelectModule} from '@angular/material/select';
 import {ActivatedRoute} from '@angular/router';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {NotificationService} from '../../services/notification.service';
 
 @Component({
   selector: 'app-edit-produit',
@@ -26,7 +26,8 @@ export class EditProduitComponent implements OnInit {
   formBuilder = inject(FormBuilder)
   http = inject(HttpClient)
   activatedRoute = inject(ActivatedRoute)
-  notification = inject(MatSnackBar)
+  notification = inject(NotificationService)
+
 
   formulaire = this.formBuilder.group({
     nom: ["Nouveau produit", [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],
@@ -75,7 +76,7 @@ export class EditProduitComponent implements OnInit {
         this.http
           .put("http://localhost:8080/produit/" + this.produitEdite.id, this.formulaire.value)
           .subscribe(resultat => {
-            this.notification.open("Le produit a bien été modifié", "", {duration: 5000, verticalPosition: "top"})
+            this.notification.show("Le produit a bien été modifié", "valid")
           })
 
       } else {
@@ -83,14 +84,10 @@ export class EditProduitComponent implements OnInit {
         this.http
           .post("http://localhost:8080/produit", this.formulaire.value)
           .subscribe(resultat => {
-            this.notification.open("Le produit a bien été ajouté", "", {duration: 5000, verticalPosition: "top"})
+            this.notification.show("Le produit a bien été ajouté", "valid")
           })
-
       }
-
-
     }
-
   }
 
   compareId(o1: { id: number }, o2: { id: number }) {

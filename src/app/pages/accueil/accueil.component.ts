@@ -23,8 +23,15 @@ export class AccueilComponent implements OnInit {
   produits: Produit[] = []
 
   ngOnInit() {
-    this.http.get<Produit[]>("http://localhost:8080/produits")
-      .subscribe(produits => this.produits = produits)
+
+    const jwt = localStorage.getItem("jwt")
+
+    if (jwt) {
+
+      this.http.get<Produit[]>("http://localhost:8080/produits", {headers: {Authorization: "Bearer " + jwt}})
+        .subscribe(produits => this.produits = produits)
+
+    }
   }
 
 }
