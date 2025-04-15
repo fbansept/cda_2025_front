@@ -4,6 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
 import {NgStyle} from '@angular/common';
+import {AuthService} from '../../services/auth.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class AccueilComponent implements OnInit {
 
   http = inject(HttpClient)
   produits: Produit[] = []
+  auth = inject(AuthService)
 
   ngOnInit() {
 

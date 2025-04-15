@@ -4,6 +4,8 @@ import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angula
 import {MatButtonModule} from '@angular/material/button';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../services/notification.service';
+import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-connexion',
@@ -21,6 +23,8 @@ export class ConnexionComponent {
   formBuilder = inject(FormBuilder)
   http = inject(HttpClient)
   notification = inject(NotificationService)
+  router = inject(Router)
+  auth = inject(AuthService)
 
   formulaire = this.formBuilder.group({
     email: ["a@a.com", [Validators.required, Validators.email]],
@@ -36,7 +40,10 @@ export class ConnexionComponent {
           this.formulaire.value,
           {responseType: "text"})
         .subscribe({
-          next: jwt => localStorage.setItem("jwt", jwt),
+          next: jwt => {
+            this.router.navigateByUrl("/accueil")
+            this.auth.decodeJwt(jwt)
+          },
           error: erreur => {
             if (erreur.status === 401) {
               this.notification.show("Mauvais login / mot de passe", "error")
