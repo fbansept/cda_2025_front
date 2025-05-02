@@ -1,10 +1,10 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
 import {NgStyle} from '@angular/common';
 import {AuthService} from '../../services/auth.service';
+import {ProduitService} from '../../services/crud/produit.service';
 
 
 @Component({
@@ -20,15 +20,14 @@ import {AuthService} from '../../services/auth.service';
 })
 export class AccueilComponent implements OnInit {
 
-  http = inject(HttpClient)
-  produits: Produit[] = []
   auth = inject(AuthService)
+  produitService = inject(ProduitService)
+  produits: Produit[] = [];
 
   ngOnInit() {
+    this.produitService.getAll()
 
-    this.http.get<Produit[]>("http://localhost:8080/produits")
-      .subscribe(produits => this.produits = produits)
-
+    this.produitService.produits$.subscribe(
+      produits => this.produits = produits)
   }
-
 }

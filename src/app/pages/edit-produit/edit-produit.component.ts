@@ -5,8 +5,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {MatSelectModule} from '@angular/material/select';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NotificationService} from '../../services/notification.service';
+import {ProduitService} from '../../services/crud/produit.service';
 
 @Component({
   selector: 'app-edit-produit',
@@ -27,6 +28,8 @@ export class EditProduitComponent implements OnInit {
   http = inject(HttpClient)
   activatedRoute = inject(ActivatedRoute)
   notification = inject(NotificationService)
+  router = inject(Router)
+  produitService = inject(ProduitService)
 
 
   formulaire = this.formBuilder.group({
@@ -72,21 +75,22 @@ export class EditProduitComponent implements OnInit {
     if (this.formulaire.valid) {
 
       if (this.produitEdite) {
-
-        this.http
-          .put("http://localhost:8080/produit/" + this.produitEdite.id, this.formulaire.value)
-          .subscribe(resultat => {
-            this.notification.show("Le produit a bien été modifié", "valid")
+        this.produitService
+          .update(this.produitEdite.id, this.formulaire.value)
+          .subscribe({
+            next: () => this.notification.show("Le produit a bien été modifié", "valid"),
+            error: () => this.notification.show("Problème de communication", "error"),
           })
-
       } else {
-
-        this.http
-          .post("http://localhost:8080/produit", this.formulaire.value)
-          .subscribe(resultat => {
-            this.notification.show("Le produit a bien été ajouté", "valid")
+        this.produitService
+          .save(this.formulaire.value)
+          .subscribe({
+            next: () => this.notification.show("Le produit a bien été ajouté", "valid"),
+            error: () => this.notification.show("Problème de communication", "error"),
           })
       }
+
+      this.router.navigateByUrl("/accueil")
     }
   }
 
