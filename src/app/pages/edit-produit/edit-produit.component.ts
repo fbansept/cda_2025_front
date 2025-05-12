@@ -32,6 +32,7 @@ export class EditProduitComponent implements OnInit {
   notification = inject(NotificationService)
   router = inject(Router)
   produitService = inject(ProduitService)
+  photo: File | null = null;
 
 
   formulaire = this.formBuilder.group({
@@ -84,12 +85,28 @@ export class EditProduitComponent implements OnInit {
             error: () => this.notification.show("Problème de communication", "error"),
           })
       } else {
-        this.produitService
-          .save(this.formulaire.value)
-          .subscribe({
-            next: () => this.notification.show("Le produit a bien été ajouté", "valid"),
-            error: () => this.notification.show("Problème de communication", "error"),
-          })
+
+        const formData = new FormData();
+
+        formData.set("produit", new Blob([JSON.stringify(this.formulaire.value)], {type: 'application/json'}));
+
+        if (this.photo) {
+          formData.set("photo", this.photo)
+        }
+
+        this.http
+          .post("http://localhost:8080/produit", formData)
+          .subscribe(produit => console.log("OK"))
+
+
+        // this.produitService
+        //   .save(this.formulaire.value)
+        //   .subscribe({
+        //     next: () => this.notification.show("Le produit a bien été ajouté", "valid"),
+        //     error: () => this.notification.show("Problème de communication", "error"),
+        //   })
+
+
       }
 
       this.router.navigateByUrl("/accueil")
@@ -97,9 +114,11 @@ export class EditProduitComponent implements OnInit {
   }
 
   compareId(o1: { id: number }, o2: { id: number }) {
-
     return o1.id === o2.id
+  }
 
+  onPhotoSelectionne(fichier: File | null) {
+    this.photo = fichier
   }
 
 }

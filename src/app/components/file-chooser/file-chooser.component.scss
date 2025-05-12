@@ -2,3 +2,23 @@ input {
   display: none;
 }
 
+.bouton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: #4675c6;
+  color: white;
+  user-select: none;
+
+  &:hover {
+    background-color: #648fd9;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: 30px;
+  }
+}

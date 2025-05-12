@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-file-chooser',
@@ -8,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class FileChooserComponent {
 
+  fichier?: File
+
+  @Output()
+  selected = new EventEmitter<File | null>()
+
+  onFichierSelectionne(e: any) {
+    this.fichier = e.target.files[0];
+    this.selected.emit(this.fichier)
+  }
 }
