@@ -6,4 +6,5 @@ type Produit = {
   prix: number,
   etat: Etat,
   etiquettes: Etiquette[]
+  nomImage: string
 }
