@@ -8,6 +8,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NotificationService} from '../../services/notification.service';
 import {ProduitService} from '../../services/crud/produit.service';
+import {FileChooserComponent} from '../../components/file-chooser/file-chooser.component';
 
 @Component({
   selector: 'app-edit-produit',
@@ -17,7 +18,8 @@ import {ProduitService} from '../../services/crud/produit.service';
     MatIconModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    FileChooserComponent
   ],
   templateUrl: './edit-produit.component.html',
   styleUrl: './edit-produit.component.scss'
