@@ -5,6 +5,7 @@ import {RouterLink} from '@angular/router';
 import {NgStyle} from '@angular/common';
 import {AuthService} from '../../services/auth.service';
 import {ProduitService} from '../../services/crud/produit.service';
+import {ImgSecuredDirective} from '../../components/img-secured/img-secured.directive';
 
 
 @Component({
@@ -13,7 +14,8 @@ import {ProduitService} from '../../services/crud/produit.service';
     MatButtonModule,
     MatCardModule,
     RouterLink,
-    NgStyle
+    NgStyle,
+    ImgSecuredDirective
   ],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.scss'
