@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../services/notification.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-connexion',
@@ -36,7 +37,7 @@ export class InscriptionComponent {
 
       this.http
         .post(
-          "http://localhost:8080/inscription",
+          environment.serverUrl + "inscription",
           this.formulaire.value)
         .subscribe({
           next: jwt => {

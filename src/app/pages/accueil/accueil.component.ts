@@ -6,6 +6,7 @@ import {NgStyle} from '@angular/common';
 import {AuthService} from '../../services/auth.service';
 import {ProduitService} from '../../services/crud/produit.service';
 import {ImgSecuredDirective} from '../../components/img-secured/img-secured.directive';
+import {environment} from '../../../environments/environment';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class AccueilComponent implements OnInit {
   auth = inject(AuthService)
   produitService = inject(ProduitService)
   produits: Produit[] = [];
+  environment = environment;
 
   ngOnInit() {
     this.produitService.getAll()

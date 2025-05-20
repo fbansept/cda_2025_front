@@ -9,6 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NotificationService} from '../../services/notification.service';
 import {ProduitService} from '../../services/crud/produit.service';
 import {FileChooserComponent} from '../../components/file-chooser/file-chooser.component';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-edit-produit',
@@ -65,11 +66,11 @@ export class EditProduitComponent implements OnInit {
       })
 
     this.http
-      .get<Etat[]>("http://localhost:8080/etats")
+      .get<Etat[]>(environment.serverUrl + "etats")
       .subscribe(etats => this.etats = etats)
 
     this.http
-      .get<Etiquette[]>("http://localhost:8080/etiquettes")
+      .get<Etiquette[]>(environment.serverUrl + "etiquettes")
       .subscribe(etiquettes => this.etiquettes = etiquettes)
   }
 
@@ -95,7 +96,7 @@ export class EditProduitComponent implements OnInit {
         }
 
         this.http
-          .post("http://localhost:8080/produit", formData)
+          .post(environment.serverUrl + "produit", formData)
           .subscribe(produit => console.log("OK"))
 
 

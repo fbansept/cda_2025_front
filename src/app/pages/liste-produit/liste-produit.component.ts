@@ -1,6 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MatTableModule} from '@angular/material/table';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-liste-produit',
@@ -18,7 +19,7 @@ export class ListeProduitComponent implements OnInit {
 
   ngOnInit() {
     this.http
-      .get<Produit[]>("http://localhost:8080/produits")
+      .get<Produit[]>(environment.serverUrl + "produits")
       .subscribe(produits =>
         this.produits = produits)
   }

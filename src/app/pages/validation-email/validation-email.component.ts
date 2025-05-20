@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {NotificationService} from '../../services/notification.service';
 import {MatButtonModule} from '@angular/material/button';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-validation-email',
@@ -36,7 +37,7 @@ export class ValidationEmailComponent implements OnInit {
         .post<{
           token: string,
           consentementUtilisationDonnees: boolean
-        }>("http://localhost:8080/validate-email", {token: this.token, consentementUtilisationDonnees: true})
+        }>(environment.serverUrl + "validate-email", {token: this.token, consentementUtilisationDonnees: true})
         .subscribe({
           next: resultat => {
             this.notification.show("Votre inscription est finalisée, vous pouvez à présent vous connecter", "valid")

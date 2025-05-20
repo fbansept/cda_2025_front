@@ -24,7 +24,7 @@
 
           </mat-card-subtitle>
         </mat-card-header>
-        <img ImgSecured mat-card-image src="http://localhost:8080/produit/image/{{produit.id}}">+
+        <img ImgSecured mat-card-image [src]="environment.serverUrl + 'produit/image/' + produit.id">
         <mat-card-content>
           <p>
             {{ produit.description }}
