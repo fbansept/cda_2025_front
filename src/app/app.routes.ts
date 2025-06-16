@@ -13,7 +13,7 @@ export const routes: Routes = [
   {path: "accueil", component: AccueilComponent, canActivate: [connecteGuard]},
   {path: "connexion", component: ConnexionComponent},
   {path: "inscription", component: InscriptionComponent},
-  {path: "ajout-produit", component: EditProduitComponent, canActivate: [vendeurGuard]},
+  {path: "ajout-produit", component: EditProduitComponent},
   {path: "modifier-produit/:id", component: EditProduitComponent, canActivate: [vendeurGuard]},
   {path: "liste-produit", component: ListeProduitComponent, canActivate: [vendeurGuard]},
   {path: "validate-email/:token", component: ValidationEmailComponent},

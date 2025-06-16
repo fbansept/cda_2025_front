@@ -10,6 +10,7 @@ import {NotificationService} from '../../services/notification.service';
 import {ProduitService} from '../../services/crud/produit.service';
 import {FileChooserComponent} from '../../components/file-chooser/file-chooser.component';
 import {environment} from '../../../environments/environment';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-edit-produit',
@@ -20,7 +21,8 @@ import {environment} from '../../../environments/environment';
     ReactiveFormsModule,
     FormsModule,
     MatSelectModule,
-    FileChooserComponent
+    FileChooserComponent,
+    MatDatepickerModule,
   ],
   templateUrl: './edit-produit.component.html',
   styleUrl: './edit-produit.component.scss'
@@ -35,7 +37,6 @@ export class EditProduitComponent implements OnInit {
   produitService = inject(ProduitService)
   photo: File | null = null;
 
-
   formulaire = this.formBuilder.group({
     nom: ["Nouveau produit", [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],
     code: ["7777", [Validators.required]],
@@ -43,6 +44,7 @@ export class EditProduitComponent implements OnInit {
     prix: [99.99, [Validators.required, Validators.min(0.1)]],
     etat: [{id: 1}],
     etiquettes: [[] as Etiquette[]],
+    rupture: [new Date()],
   })
 
   etats: Etat[] = []
@@ -76,42 +78,46 @@ export class EditProduitComponent implements OnInit {
 
   onAjoutProduit() {
 
-    if (this.formulaire.valid) {
 
-      if (this.produitEdite) {
-        this.produitService
-          .update(this.produitEdite.id, this.formulaire.value)
-          .subscribe({
-            next: () => this.notification.show("Le produit a bien été modifié", "valid"),
-            error: () => this.notification.show("Problème de communication", "error"),
-          })
-      } else {
+    console.log(JSON.stringify(this.formulaire.value))
 
-        const formData = new FormData();
-
-        formData.set("produit", new Blob([JSON.stringify(this.formulaire.value)], {type: 'application/json'}));
-
-        if (this.photo) {
-          formData.set("photo", this.photo)
-        }
-
-        this.http
-          .post(environment.serverUrl + "produit", formData)
-          .subscribe(produit => console.log("OK"))
-
-
-        // this.produitService
-        //   .save(this.formulaire.value)
-        //   .subscribe({
-        //     next: () => this.notification.show("Le produit a bien été ajouté", "valid"),
-        //     error: () => this.notification.show("Problème de communication", "error"),
-        //   })
-
-
-      }
-
-      this.router.navigateByUrl("/accueil")
-    }
+    //
+    // if (this.formulaire.valid) {
+    //
+    //   if (this.produitEdite) {
+    //     this.produitService
+    //       .update(this.produitEdite.id, this.formulaire.value)
+    //       .subscribe({
+    //         next: () => this.notification.show("Le produit a bien été modifié", "valid"),
+    //         error: () => this.notification.show("Problème de communication", "error"),
+    //       })
+    //   } else {
+    //
+    //     const formData = new FormData();
+    //
+    //     formData.set("produit", new Blob([JSON.stringify(this.formulaire.value)], {type: 'application/json'}));
+    //
+    //     if (this.photo) {
+    //       formData.set("photo", this.photo)
+    //     }
+    //
+    //     this.http
+    //       .post(environment.serverUrl + "produit", formData)
+    //       .subscribe(produit => console.log("OK"))
+    //
+    //
+    //     // this.produitService
+    //     //   .save(this.formulaire.value)
+    //     //   .subscribe({
+    //     //     next: () => this.notification.show("Le produit a bien été ajouté", "valid"),
+    //     //     error: () => this.notification.show("Problème de communication", "error"),
+    //     //   })
+    //
+    //
+    //   }
+    //
+    //   this.router.navigateByUrl("/accueil")
+    // }
   }
 
   compareId(o1: { id: number }, o2: { id: number }) {
