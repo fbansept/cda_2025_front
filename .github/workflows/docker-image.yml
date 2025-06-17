@@ -16,7 +16,7 @@ jobs:
     - name: Extract package name and version
       id: package-info
       run: |
-        echo "APP_NAME=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+        echo "APP_NAME=$(jq -r '.name' package.json)" >> $GITHUB_ENV
         echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
 
     - name: Log in to Docker Hub
