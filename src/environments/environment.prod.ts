@@ -1,3 +1,3 @@
 export const environment = {
-  serverUrl: "https://franckbansept.stagiairesmns.fr/api/"
+  serverUrl: "https://monsite.com/api/"
 };
