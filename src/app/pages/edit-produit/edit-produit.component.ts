@@ -79,45 +79,35 @@ export class EditProduitComponent implements OnInit {
   onAjoutProduit() {
 
 
-    console.log(JSON.stringify(this.formulaire.value))
+    if (this.formulaire.valid) {
 
-    //
-    // if (this.formulaire.valid) {
-    //
-    //   if (this.produitEdite) {
-    //     this.produitService
-    //       .update(this.produitEdite.id, this.formulaire.value)
-    //       .subscribe({
-    //         next: () => this.notification.show("Le produit a bien été modifié", "valid"),
-    //         error: () => this.notification.show("Problème de communication", "error"),
-    //       })
-    //   } else {
-    //
-    //     const formData = new FormData();
-    //
-    //     formData.set("produit", new Blob([JSON.stringify(this.formulaire.value)], {type: 'application/json'}));
-    //
-    //     if (this.photo) {
-    //       formData.set("photo", this.photo)
-    //     }
-    //
-    //     this.http
-    //       .post(environment.serverUrl + "produit", formData)
-    //       .subscribe(produit => console.log("OK"))
-    //
-    //
-    //     // this.produitService
-    //     //   .save(this.formulaire.value)
-    //     //   .subscribe({
-    //     //     next: () => this.notification.show("Le produit a bien été ajouté", "valid"),
-    //     //     error: () => this.notification.show("Problème de communication", "error"),
-    //     //   })
-    //
-    //
-    //   }
-    //
-    //   this.router.navigateByUrl("/accueil")
-    // }
+      if (this.produitEdite) {
+        this.produitService
+          .update(this.produitEdite.id, this.formulaire.value)
+          .subscribe({
+            next: () => this.notification.show("Le produit a bien été modifié", "valid"),
+            error: () => this.notification.show("Problème de communication", "error"),
+          })
+      } else {
+
+        const formData = new FormData();
+
+        formData.set("produit", new Blob([JSON.stringify(this.formulaire.value)], {type: 'application/json'}));
+
+        if (this.photo) {
+          formData.set("photo", this.photo)
+        }
+
+        this.produitService
+          .save(formData)
+          .subscribe({
+            next: () => this.notification.show("Le produit a bien été ajouté", "valid"),
+            error: () => this.notification.show("Problème de communication", "error"),
+          })
+      }
+
+      this.router.navigateByUrl("/accueil")
+    }
   }
 
   compareId(o1: { id: number }, o2: { id: number }) {
